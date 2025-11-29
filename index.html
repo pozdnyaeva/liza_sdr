@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С Днем Рождения, Лиза!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Benguiat+ITC&family=Libre+Baskerville:wght@700&display=swap');
+
+        body {
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            font-family: 'Libre Baskerville', serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* ГИРЛЯНДА */
+        .garland-container {
+            position: relative; width: 100%; max-width: 600px; height: 60px;
+            display: flex; justify-content: space-between; margin-bottom: 0; pointer-events: none;
+        }
+        .string {
+            position: absolute; top: 10px; left: 0; width: 100%; height: 40px;
+            border-top: 2px solid #555; border-radius: 50%; z-index: 0;
+        }
+        .bulb {
+            width: 15px; height: 25px; border-radius: 50%; background: #555;
+            position: relative; top: 10px; z-index: 1;
+            animation: twinkle 1s infinite alternate;
+            box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+        }
+        .bulb.red { background: #ff4d4d; animation-delay: 0s; }
+        .bulb.blue { background: #4d79ff; animation-delay: 0.3s; }
+        .bulb.yellow { background: #ffeb3b; animation-delay: 0.6s; }
+        .bulb.green { background: #4dff88; animation-delay: 0.9s; }
+        @keyframes twinkle { 0% { opacity: 0.6; } 100% { opacity: 1; transform: scale(1.1); } }
+
+        h1 {
+            font-size: 2.5rem; text-transform: uppercase; color: transparent;
+            -webkit-text-stroke: 1px #ff6b6b; margin-bottom: 5px; text-align: center;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
+            margin-top: 0;
+        }
+
+        .subtitle {
+            font-size: 1rem; color: #ffdddd; margin-bottom: 30px;
+            text-transform: uppercase; letter-spacing: 3px; border-top: 1px solid #ff6b6b;
+            padding-top: 5px;
+        }
+
+        /* СЕТКА */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            gap: 10px;
+            width: 100%;
+            max-width: 800px;
+            padding-bottom: 50px;
+        }
+
+        .main-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .upside-down {
+            transform: rotate(180deg);
+            margin-top: 60px;
+            opacity: 0.85;
+            pointer-events: none;
+        }
+
+        .day-card {
+            background: rgba(40, 30, 60, 0.6);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            aspect-ratio: 1;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem; cursor: pointer; border-radius: 8px;
+            transition: 0.3s;
+        }
+        .mirror-text {
+            display: inline-block;
+            transform: rotate(180deg);
+        }
+        .day-card:hover {
+            background: rgba(255, 107, 107, 0.2);
+            border-color: #fff; transform: scale(1.1);
+        }
+
+        /* МОДАЛЬНОЕ ОКНО */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 100;
+            justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: #1a1327; border: 2px solid #ff6b6b; padding: 20px;
+            max-width: 400px; width: 85%; text-align: center; border-radius: 10px;
+            position: relative;
+        }
+        .close-btn {
+            position: absolute; top: 5px; right: 10px; font-size: 24px; cursor: pointer; color: #ff6b6b;
+        }
+        .modal-body img { max-width: 100%; border-radius: 5px; margin-top: 10px; }
+        .modal-body audio { width: 100%; margin-top: 10px; }
+        .modal-text { margin-top: 15px; font-size: 1rem; line-height: 1.4; color: #eee; }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-section" id="main-section">
+        <div class="garland-container">
+            <div class="string"></div>
+            <div class="bulb red"></div><div class="bulb blue"></div><div class="bulb yellow"></div>
+            <div class="bulb green"></div><div class="bulb red"></div><div class="bulb blue"></div>
+            <div class="bulb yellow"></div><div class="bulb green"></div><div class="bulb red"></div>
+            <div class="bulb blue"></div>
+        </div>
+
+        <h1>Happy Birthday<br>LIZA</h1>
+        <div class="subtitle">31 STRANGE THINGS</div>
+
+        <div class="calendar-grid">
+            <div class="day-card" onclick="openModal(1)">1</div>
+            <div class="day-card" onclick="openModal(2)">2</div>
+            <div class="day-card" onclick="openModal(3)">3</div>
+            <div class="day-card" onclick="openModal(4)">4</div>
+            <div class="day-card" onclick="openModal(5)">5</div>
+            <div class="day-card" onclick="openModal(6)">6</div>
+            <div class="day-card" onclick="openModal(7)">7</div>
+            <div class="day-card" onclick="openModal(8)">8</div>
+            <div class="day-card" onclick="openModal(9)">9</div>
+            <div class="day-card" onclick="openModal(10)">10</div>
+            
+            <div class="day-card" onclick="openModal(11)">11</div>
+            <div class="day-card" onclick="openModal(12)">12</div>
+            <div class="day-card" onclick="openModal(13)">13</div>
+            <div class="day-card" onclick="openModal(14)">14</div>
+            <div class="day-card" onclick="openModal(15)">15</div>
+            <div class="day-card" onclick="openModal(16)">16</div>
+            <div class="day-card" onclick="openModal(17)"><span class="mirror-text">17</span></div>
+            <div class="day-card" onclick="openModal(18)">18</div>
+            <div class="day-card" onclick="openModal(19)">19</div>
+            <div class="day-card" onclick="openModal(20)">20</div>
+
+            <div class="day-card" onclick="openModal(21)">21</div>
+            <div class="day-card" onclick="openModal(22)">22</div>
+            <div class="day-card" onclick="openModal(23)">23</div>
+            <div class="day-card" onclick="openModal(24)">24</div>
+            <div class="day-card" onclick="openModal(25)">25</div>
+            <div class="day-card" onclick="openModal(26)">26</div>
+            <div class="day-card" onclick="openModal(27)">27</div>
+            <div class="day-card" onclick="openModal(28)">28</div>
+            <div class="day-card" onclick="openModal(29)">29</div>
+            <div class="day-card" onclick="openModal(30)">30</div>
+            <div class="day-card" onclick="openModal(31)">31</div>
+        </div>
+    </div>
+
+    <div class="main-section upside-down" id="mirror-section" aria-hidden="true"></div>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title" style="color: #ff6b6b;">Thing 1</h2>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- ТВОИ ПОЗДРАВЛЕНИЯ И ОТСЫЛКИ ЗДЕСЬ ---
+        // ВАЖНО: Следи за запятыми в конце строк!
+        const contentData = {
+            1: {
+                type: 'text',
+                text: 'С Днем Рождения, Лиза! Это не просто адвент-календарь, это твой проход в Хоукинс! Тебя ждут 30 странных,<br> но приятных сюрпризов! 💖'
+            },
+            2: {
+                type: 'image',
+                text: 'Когда понимаешь, что начинается что-то интересное! 😉',
+                src: 'https://i.gifer.com/P4Wf.gif' // Дастин "Oh my God!"
+            },
+            3: {
+                type: 'text',
+                text: 'Помни, что в любой непонятной ситуации... '
+            },
+            4: {
+                type: 'image',
+                text: '...всегда есть друзья, готовые спасти тебя! Как Майк для Одиннадцати.',
+                src: 'https://media.giphy.com/media/l0MYK23qRru3u3dLy/giphy.gif' // Mike and Eleven hug
+            },
+            5: {
+                type: 'music',
+                text: 'Время для твоей "Running Up That Hill" (если вдруг захочешь убежать от скуки!)',
+                src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' // Замени на Kate Bush - Running Up That Hill, если найдешь MP3
+            },
+            6: {
+                type: 'image',
+                text: 'Немного Стива, потому что "надо быть мамой"! 😉',
+                src: 'https://media.giphy.com/media/2Faz4yK5T8gq4/giphy.gif' // Стив с детьми
+            },
+            7: {
+                type: 'text',
+                text: 'Не позволяй никаким Демогоргонам испортить тебе день! Ты сильнее 💪'
+            },
+            8: {
+                type: 'image',
+                text: 'Наш отряд готов к любым приключениям с тобой!',
+                src: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1MjYyZjJ4aW5kOGx4anRvcG91M2t1dHJjYnVkZ3NkaTRtZmJ0biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kHHtSj70s4UhiZkX5U/giphy.gif' // Банда на великах
+            },
+            9: {
+                type: 'text',
+                text: 'Когда ты такая умная и знаешь ответы на все вопросы, как Дастин! '
+            },
+            10: {
+                type: 'image',
+                text: 'Иногда для счастья нужен просто хороший перекус (и друзья)!',
+                src: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaW5vY3E4NTRwMjE4ZHBwMzQ3ZHFhYjJ3ZmZ0cHF0MnI2cGV2djU4OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYA8yT6G4m1502Y/giphy.gif' // Одиннадцать ест вафли
+            },
+            11: {
+                type: 'image',
+                text: 'Каждый момент с тобой — это как открытие нового портала в Upside Down! 🔮',
+                src: 'photo_2025-11-29 21.02.58.jpeg'
+            },
+            12: {
+                type: 'image',
+                text: 'Ты — наша Одиннадцать, которая может всё! Сила в тебе! 💪✨',
+                src: 'photo_2025-11-29 21.03.08.jpeg'
+            },
+            13: {
+                type: 'image',
+                text: 'Когда мы вместе, даже Демогоргоны не страшны! Наш отряд непобедим! 🛡️',
+                src: 'photo_2025-11-29 21.03.14.jpeg'
+            },
+            14: {
+                type: 'image',
+                text: 'Помнишь, как в Хоукинсе? Каждый день — новое приключение! 🚲',
+                src: 'photo_2025-11-29 21.03.18.jpeg'
+            },
+            15: {
+                type: 'image',
+                text: 'Ты зажигаешь, как лампочки в гирлянде! Свети всегда! 💡',
+                src: 'photo_2025-11-29 21.03.28.jpeg'
+            },
+            16: {
+                type: 'image',
+                text: 'В любой непонятной ситуации — друзья рядом! Как Майк, Дастин и Лукас! 👥',
+                src: 'photo_2025-11-29 21.03.56.jpeg'
+            },
+            17: {
+                type: 'image',
+                text: 'Этот день особенный... как портал в параллельную вселенную! 🌌',
+                src: 'photo_2025-11-29 21.04.01.jpeg'
+            },
+            18: {
+                type: 'image',
+                text: 'Ты делаешь каждый день особенным! Спасибо за магию! ✨',
+                src: 'photo_2025-11-29 21.04.05.jpeg'
+            },
+            19: {
+                type: 'image',
+                text: 'Когда понимаешь, что лучшие моменты — это моменты с друзьями! 💖',
+                src: 'photo_2025-11-29 21.04.10.jpeg'
+            },
+            20: {
+                type: 'image',
+                text: 'Ты — наша суперсила! Без тебя отряд неполный! 🦸‍♀️',
+                src: 'photo_2025-11-29 21.04.13.jpeg'
+            },
+            21: {
+                type: 'text',
+                text: 'Каждый день ближе к главному сюрпризу! Держись! 🎯'
+            },
+            22: {
+                type: 'text',
+                text: 'Ты сильнее, чем думаешь! Помни об этом всегда! 💪'
+            },
+            23: {
+                type: 'text',
+                text: 'В Хоукинсе всегда что-то происходит... и с тобой тоже! 🌟'
+            },
+            24: {
+                type: 'text',
+                text: 'Наш отряд готов к любым вызовам! Вместе мы непобедимы! 🛡️'
+            },
+            25: {
+                type: 'text',
+                text: 'Каждый день — это новая глава твоей истории! Пиши её ярко! 📖'
+            },
+            26: {
+                type: 'text',
+                text: 'Ты заслуживаешь всего самого лучшего! И это только начало! 🎁'
+            },
+            27: {
+                type: 'text',
+                text: 'Помни: даже в Upside Down есть свет! Ты и есть этот свет! ✨'
+            },
+            28: {
+                type: 'text',
+                text: 'Мы рядом, как настоящая команда! Всегда! 👥'
+            },
+            29: {
+                type: 'text',
+                text: 'Скоро финал... но это только начало новых приключений! 🚀'
+            },
+            30: {
+                type: 'text',
+                text: 'Последний день перед главным сюрпризом! Приготовься! 🎈'
+            },
+            31: {
+                type: 'image',
+                text: 'САМЫЙ ГЛАВНЫЙ СЮРПРИЗ! С ДНЕМ РОЖДЕНИЯ, ЛИЗА! 🎈 Пусть этот день будет таким же невероятным, как финал сезона Stranger Things!',
+                src: 'https://media.giphy.com/media/hKxV1tq6Wd0x2/giphy.gif' // Финальный салют/праздник
+            }
+        };
+
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const mainSection = document.getElementById('main-section');
+        const mirrorSection = document.getElementById('mirror-section');
+
+        if (mainSection && mirrorSection) {
+            const clone = mainSection.cloneNode(true);
+            clone.removeAttribute('id');
+            mirrorSection.appendChild(clone);
+        }
+
+        function openModal(day) {
+            const data = contentData[day];
+            modalTitle.innerText = 'Thing ' + day;
+            modalBody.innerHTML = '';
+
+            if (!data) {
+                modalBody.innerHTML = '<p>Сюрприз еще готовится... 🎁</p>';
+            } else {
+                if (data.text) modalBody.innerHTML += `<p class="modal-text">${data.text}</p>`;
+                if (data.type === 'image' && data.src) modalBody.innerHTML += `<img src="${data.src}">`;
+                if (data.type === 'music' && data.src) {
+                    modalBody.innerHTML += `<audio controls autoplay><source src="${data.src}"></audio>`;
+                }
+            }
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            const audio = modalBody.querySelector('audio');
+            if (audio) audio.pause();
+        }
+        
+        window.onclick = function(e) { if (e.target == modal) closeModal(); }
+    </script>
+</body>
+</html>
+
