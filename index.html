@@ -233,7 +233,7 @@
             6: {
                 type: 'image',
                 text: 'В Хоукинсе всегда что-то происходит... Сегодня это твои Очень странные дела! 🌌',
-                src: '6.png'
+                src: '6.jpg'
             },
             7: {
                 type: 'text',
@@ -375,7 +375,7 @@
                 modalBody.innerHTML = '<p>Сюрприз еще готовится... 🎁</p>';
             } else {
                 if (data.text) modalBody.innerHTML += `<p class="modal-text">${data.text}</p>`;
-                if (data.type === 'image' && data.src) modalBody.innerHTML += `<img src="${data.src}">`;
+                if (data.type === 'image' && data.src) modalBody.innerHTML += `<img src="${data.src}" loading="lazy" decoding="async" style="max-width: 100%; height: auto;">`;
                 if (data.type === 'music' && data.src) {
                     modalBody.innerHTML += `<audio controls autoplay><source src="${data.src}"></audio>`;
                 }
